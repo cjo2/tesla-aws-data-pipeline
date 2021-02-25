@@ -1,8 +1,12 @@
 # tesla-aws-data-pipeline
 A real-time Tesla vehicle monitoring data pipeline built on AWS.
 
+## Wait but why?
+Tesla does not provide a service out-of-the-box to allow you to compile and export your vehicle's _basic_ telemetry data. In addition, most tools available to the broader ownership community store your data in the vendor's private cloud. This data pipeline will allow you to simply compile your vehicle's data and keep it within your own AWS account.
+
 ## General workflow
 * AWS Lambda function, "query-vehicle", will activate at a set interval by a CloudWatch event rule
 * "query-vehicle" will publish an event to Amazon SNS FIFO Queue
 * AWS Lambda function, "dump-data" will be triggered by Amazon SQS. A buffer may be needed so that one log won't be processed for each function invocation. Potential that this may "break" real-time features and instead make the application near-real-time.
 * "dump-data" will write data to the a DynamoDB instance
+
