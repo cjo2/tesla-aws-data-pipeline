@@ -1,5 +1,5 @@
 # tesla-aws-data-pipeline
-A real-time Tesla vehicle monitoring data pipeline built on AWS.
+A (near-ish) real-time Tesla vehicle monitoring data pipeline built on AWS.
 
 ## Wait but why?
 Tesla does not provide a service out-of-the-box to allow you to compile and export your vehicle's _basic_ telemetry data. In addition, most tools available to the broader ownership community store your data in the vendor's private cloud. This data pipeline will allow you to simply compile your vehicle's data and keep it within your own AWS account.
