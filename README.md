@@ -11,3 +11,5 @@ Tesla does not provide a service out-of-the-box to allow you to compile and expo
 * Other optional services may subscribe to "tdp-data-log-entry-retrieved"
 * "dump-data" will write data to a DynamoDB instance
 
+## Limitations
+* This approach limits querying the vehicle once a minute. Another approach may be needed if you are relying on functions as a service.
