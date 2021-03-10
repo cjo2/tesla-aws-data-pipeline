@@ -1,0 +1,325 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "476c5a47-fd1d-479d-ad0b-2c37908fffbd": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 420,
+                    "y": 130
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "c53a298b-a530-481a-bda1-c883fd16ebb7": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 190,
+                    "y": 140
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "fe13490a-2a91-4979-beaf-599e4382a7db",
+                    "476c5a47-fd1d-479d-ad0b-2c37908fffbd",
+                    "01fffea0-ea59-4023-a219-19dc7954b7f6"
+                ]
+            },
+            "fe13490a-2a91-4979-beaf-599e4382a7db": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 370,
+                    "y": 250
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "90663c9c-6598-4e1b-8f92-db86684cb4cf": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -70,
+                    "y": 460
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "4cabbe5b-5cae-4423-ad0f-027f88ad2da1": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 20,
+                    "y": 90
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "c53a298b-a530-481a-bda1-c883fd16ebb7"
+                ]
+            },
+            "01fffea0-ea59-4023-a219-19dc7954b7f6": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 160,
+                    "y": 250
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "043f9069-4108-44b7-adf6-5da2ebc68d50": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 160,
+                    "y": 350
+                },
+                "z": 0,
+                "embeds": [],
+                "isassociatedwith": [
+                    "01fffea0-ea59-4023-a219-19dc7954b7f6"
+                ]
+            },
+            "909c4348-3b8b-4968-9273-06c23a4b1579": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 160,
+                    "y": 460
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "ac11d065-b530-4e36-9da5-bc72bde3b8c7",
+                    "043f9069-4108-44b7-adf6-5da2ebc68d50",
+                    "90663c9c-6598-4e1b-8f92-db86684cb4cf"
+                ]
+            },
+            "ac11d065-b530-4e36-9da5-bc72bde3b8c7": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 380,
+                    "y": 460
+                },
+                "z": 0,
+                "embeds": []
+            }
+        }
+    },
+    "Resources": {
+        "SMS3HK0K": {
+            "Type": "AWS::SecretsManager::Secret",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "476c5a47-fd1d-479d-ad0b-2c37908fffbd"
+                }
+            }
+        },
+        "LF4RG5Y": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "Description": "Queries vehicle for current data",
+                "FunctionName": "tdp-query-vehicle",
+                "Runtime": "nodejs14.x",
+                "Handler": "index.handler",
+                "Role": {
+                    "Fn::GetAtt": [
+                        "IAMR41UWW",
+                        "Arn"
+                    ]
+                },
+                "Code": {
+                  "S3Bucket": "cloudformation-lambda-test-tdp",
+                  "S3Key": "index.js.zip"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "c53a298b-a530-481a-bda1-c883fd16ebb7"
+                }
+            },
+            "DependsOn": [
+                "IAMR41UWW",
+                "SMS3HK0K",
+                "SNST41QS"
+            ]
+        },
+        "IAMR41UWW": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "tdp-query-vehicle-role",
+                "Description": "allows tdp-query-vehicle to access SecretsManager to retrieve auth token",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "fe13490a-2a91-4979-beaf-599e4382a7db"
+                }
+            }
+        },
+        "S3B2PSNK": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "90663c9c-6598-4e1b-8f92-db86684cb4cf"
+                }
+            }
+        },
+        "ER1OPYL": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+              "Name": "tdp-query-vehicle-Lambda-Invocation",
+              "Description": "Invokes tdp-query-vehicle at a set interval.",
+              "ScheduleExpression": "rate(1 minute)",
+              "Targets": [
+                {
+                  "Id": "tdp-query-vehicle-lambda-function",
+                  "Arn": {
+                    "Fn::GetAtt": [
+                        "LF4RG5Y",
+                        "Arn"
+                    ]
+                  }
+                }
+              ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "4cabbe5b-5cae-4423-ad0f-027f88ad2da1"
+                }
+            },
+            "DependsOn": [
+                "LF4RG5Y"
+            ]
+        },
+        "SNST41QS": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+              "DisplayName": "tdp-data-log-entry-retrieved"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "01fffea0-ea59-4023-a219-19dc7954b7f6"
+                }
+            }
+        },
+        "SNSS4VKBK": {
+            "Type": "AWS::SNS::Subscription",
+            "Properties": {
+                "TopicArn": {
+                    "Ref": "SNST41QS"
+                },
+                "Protocol": "lambda",
+                "Endpoint" : {
+                  "Fn::GetAtt": [
+                      "LF2S212",
+                      "Arn"
+                  ]
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "043f9069-4108-44b7-adf6-5da2ebc68d50"
+                }
+            },
+            "DependsOn": [
+              "LF2S212"
+            ]
+        },
+        "LF2S212": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "FunctionName": "tdp-data-dump",
+                "Description": "Moves data from SNS to DynamoDB",
+                "Runtime": "nodejs14.x",
+                "Handler": "index.handler",
+                "Code": {
+                  "S3Bucket": "cloudformation-lambda-test-tdp",
+                  "S3Key": "index.js.zip"
+                },
+                "Role": {
+                    "Fn::GetAtt": [
+                        "IAMR2XIYQ",
+                        "Arn"
+                    ]
+                  }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "909c4348-3b8b-4968-9273-06c23a4b1579"
+                }
+            },
+            "DependsOn": [
+                "IAMR2XIYQ",
+                "S3B2PSNK"
+            ]
+        },
+        "IAMR2XIYQ": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "tdp-data-dump-role",
+                "Description": "Allows tdp-data-dump to access DynamoDB",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "ac11d065-b530-4e36-9da5-bc72bde3b8c7"
+                }
+            }
+        }
+    }
+}
