@@ -13,3 +13,5 @@ Tesla does not provide a service out-of-the-box to allow you to compile and expo
 
 ## Limitations
 * This approach limits querying the vehicle once a minute. Another approach may be needed if you are relying on functions as a service.
+* Lambda is probably not the right solution if you want to query a vehicle more than once per minute. You could feasibly reduce the time by using AWS Step Functions. Calling it twice per minute would probably cost in the $2-$3 range per month. This would need to be confirmed to check if this counts as a state transition each time the function is called.
+** A more appropriate solution might be running an EC2 instance or a service in a Docker container. EC2 (t3) instance might cost around $3 per month.
